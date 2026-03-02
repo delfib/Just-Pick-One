@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Just Pick One</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Raleway:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Deep space canvas background -->
+  <canvas id="starsCanvas"></canvas>
+
+  <!-- Nebula layers -->
+  <div class="nebula nebula-1"></div>
+  <div class="nebula nebula-2"></div>
+  <div class="nebula nebula-3"></div>
+
+  <div class="container">
+
+    <!--  SCREEN 1: Form  -->
+    <div id="form-screen" class="screen">
+
+      <header class="header">
+        <div class="eyebrow">✦ cosmic oracle ✦</div>
+        <h1>Decide<br><span>For Me</span></h1>
+        <p class="subtitle">Cast your question into the universe.</p>
+      </header>
+
+      <div class="card">
+
+        <div class="form-group">
+          <label for="question">Your question</label>
+          <input type="text" id="question" placeholder="e.g. What should I eat today?">
+        </div>
+
+        <div class="form-group">
+          <label>Your options</label>
+          <div class="options-list" id="optionsList">
+            <div class="option-row">
+              <input type="text" placeholder="Option 1" class="option-input">
+              <button class="remove-btn" onclick="removeOption(this)" title="Remove">×</button>
+            </div>
+            <div class="option-row">
+              <input type="text" placeholder="Option 2" class="option-input">
+              <button class="remove-btn" onclick="removeOption(this)" title="Remove">×</button>
+            </div>
+          </div>
+          <button class="add-btn" onclick="addOption()">+ add another option</button>
+        </div>
+
+        <p class="error-msg" id="errorMsg">⚠ Add a question and at least 2 options first!</p>
+        <button class="decide-btn" onclick="decide()">✦ Ask the Universe</button>
+
+      </div>
+    </div>
+
+    <!-- SCREEN 2: Cosmic Oracle Animation -->
+    <div id="oracle-screen" class="screen" style="display:none;">
+      <div class="oracle-arena">
+        <div class="oracle-core" id="oracleCore">
+          <div class="core-ring ring-1"></div>
+          <div class="core-ring ring-2"></div>
+          <div class="core-ring ring-3"></div>
+          <div class="core-pulse"></div>
+          <div class="core-eye">✦</div>
+        </div>
+        <div class="orbit-container" id="orbitContainer"></div>
+      </div>
+      <p class="oracle-status" id="oracleStatus">The universe is consulting the stars…</p>
+    </div>
+
+    <!-- SCREEN 3: Result -->
+    <div id="result-screen" class="screen" style="display:none;">
+      <div class="result-inner">
+        <p class="verdict-label">✦ the universe has spoken ✦</p>
+        <p class="question-display" id="questionDisplay"></p>
+        <div class="chosen-answer" id="chosenAnswer"></div>
+        <p class="fun-phrase" id="funPhrase"></p>
+        <div class="shockwave" id="shockwave"></div>
+        <div class="result-actions">
+          <button class="redecide-btn" id="redecideBtn" onclick="handleRedecide()">↺ Re-decide</button>
+          <button class="restart-btn" onclick="restart()">Ask a new question</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
