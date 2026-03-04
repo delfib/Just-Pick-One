@@ -181,7 +181,7 @@ function runOracleAnimation(options, chosenIndex, question) {
   const statusEl = document.getElementById('oracleStatus');
   arena.innerHTML = '';
 
-  const ORBIT_RADIUS   = 180;   // px from center of arena
+  const ORBIT_RADIUS   = 120;   // px from center of arena
   const ORBIT_DURATION = 2800;  // ms the orbiting phase lasts
 
   // Spread pills evenly and give each a slightly different speed
