@@ -181,7 +181,7 @@ function runOracleAnimation(options, chosenIndex, question) {
   const statusEl = document.getElementById('oracleStatus');
   arena.innerHTML = '';
 
-  const ORBIT_RADIUS   = 120;   // px from center of arena
+  const ORBIT_RADIUS   = 180;   // px from center of arena
   const ORBIT_DURATION = 2800;  // ms the orbiting phase lasts
 
   // Spread pills evenly and give each a slightly different speed
@@ -197,25 +197,16 @@ function runOracleAnimation(options, chosenIndex, question) {
     return pill;
   });
 
-  // --- Status messages ---
-  // Shuffle so the sequence is different every time
-  const shuffled = [...ORACLE_STATUS_MESSAGES].sort(() => Math.random() - 0.5);
+  // Status Messages 
+  const firstMessage = pickRandom(ORACLE_STATUS_MESSAGES);
 
-  // Divide ORBIT_DURATION evenly: one slot per message + 1 final slot for "The universe has decided"
-  // e.g. 5 messages + 1 final = 6 slots → each slot = ~467ms
-  const MESSAGE_INTERVAL = ORBIT_DURATION / (shuffled.length + 1);
+  // Show random oracle message immediately
+  statusEl.textContent = firstMessage;
 
-  let statusIndex = 0;
-  statusEl.textContent = shuffled[0];  // show first message immediately
-
-  const statusInterval = setInterval(() => {
-    statusIndex++;
-    // Cycle through the shuffled messages only — the final slot is left empty
-    // so "The universe has decided" appears cleanly at the very end
-    if (statusIndex < shuffled.length) {
-      statusEl.textContent = shuffled[statusIndex];
-    }
-  }, MESSAGE_INTERVAL);
+  // Switch to final message shortly before decision
+  setTimeout(() => {
+    statusEl.textContent = 'The universe has decided…';
+  }, ORBIT_DURATION - 700); // 800ms before winner reveal
 
   // Animation loop: move each pill along its orbit
   function animateOrbit() {
@@ -232,7 +223,6 @@ function runOracleAnimation(options, chosenIndex, question) {
 
   // After ORBIT_DURATION: stop orbiting, pick the winner, dismiss the rest
   setTimeout(() => {
-    clearInterval(statusInterval);
     cancelAnimationFrame(orbitAnimFrame);
 
     // "The universe has decided" appears exactly once, right here
